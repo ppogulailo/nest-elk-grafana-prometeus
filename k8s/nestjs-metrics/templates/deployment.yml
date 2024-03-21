@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: nest-metrics
+  name: nest-metrics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nest-metrics
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: nest-metrics
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "3000"
+    spec:
+      containers:
+      - image: pogungun/nest-metric
+        name: nestjs-metric
+        ports:
+        - containerPort: 3000
+        resources: {}
